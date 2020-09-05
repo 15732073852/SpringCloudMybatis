@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.panyu.check.dao.CheckCouponDao">
+    <resultMap id="checkCoupon" type="com.panyu.check.entity.CheckCoupon">
+        <result column="id" property="id"></result>
+        <result column="checker_id" property="checkerId"></result>
+        <result column="checker_name" property="checkerName"></result>
+        <result column="admin_user_id" property="adminUserId"></result>
+        <result column="admin_user_login_name" property="adminUserLoginName"></result>
+        <result column="coupon_id" property="couponId"></result>
+        <result column="coupon_type" property="couponType"></result>
+        <result column="coupon_name" property="couponName"></result>
+        <result column="coupon_deduction_amount" property="couponDeductionAmount"></result>
+        <result column="coupon_conditional_amount" property="couponConditionalAmount"></result>
+        <result column="coupon_number" property="couponNumber"></result>
+        <result column="coupon_effective_days" property="couponEffectiveDays"></result>
+        <result column="coupon_status" property="couponStatus"></result>
+        <result column="coupon_createTime" property="couponCreateTime"></result>
+        <result column="coupon_updateTime" property="couponUpdateTime"></result>
+    </resultMap>
+  <select id="findById" parameterType="String" resultMap="checkCoupon">
+      SELECT * from check_coupon where id=#{id}
+  </select>
+
+    <select id="findAll" resultMap="checkCoupon">
+        select * from check_coupon
+    </select>
+
+   <update id="updateCoupon" parameterType="com.panyu.check.entity.CheckCoupon" >
+        update check_coupon <set>
+
+       coupon_updateTime =now(),
+       coupon_status="通过",
+       <if test="checkerId!=null and checkerId.length()>0">
+           checker_id =#{checkerId},
+       </if>
+       <if test="checkerName!=null and checkerName.length()>0">
+           checker_name =#{checkerName},
+       </if>
+       <if test="couponCreateTime!=null">
+           coupon_createTime=#{couponCreateTime}
+       </if>
+
+   </set>
+       where id=#{id}
+   </update>
+</mapper>

@@ -1,0 +1,27 @@
+
+#端口号
+server:
+  port: 8093
+mybatis:
+  type-aliases-package: com.panyu.check.entity          # 所有Entity别名类所在包
+  mapper-locations: classpath:mybatis/mapper/*.xml                           # mapper映射文件
+spring:
+  application:
+    name: check
+  datasource:  #mysql链接
+    url: jdbc:mysql://localhost:3306/diyici?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+feign:
+  hystrix:
+    enabled: true

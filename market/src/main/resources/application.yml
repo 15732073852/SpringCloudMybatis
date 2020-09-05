@@ -1,0 +1,33 @@
+#�˿ں�
+server:
+  port: 8092
+mybatis:
+  type-aliases-package: com.panyu.market.entity          # ����Entity���������ڰ�
+  mapper-locations: classpath:mybatis/mapper/*.xml                           # mapperӳ���ļ�
+mysql:
+  database: firstdemo
+spring:
+  application:
+    name: market
+  main:
+    allow-bean-definition-overriding: true #������ͬ�����ֵ�ʱ���Ƿ�������ע��
+#  security:
+#    user:
+#      name: market
+#      password: 8qGxUaG4RBsiMsiggFblxoq7sYYrKQR8
+  datasource:  #mysql����
+    url: jdbc:mysql://localhost:3306/diyici?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # ʹ��druid����Դ
+    type: com.alibaba.druid.pool.DruidDataSource
+eureka:
+  client:
+  service-url:
+  defaultZone: http://localhost:8761/eureka/
+  instance:
+  prefer-ip-address: true 
+feign:
+  hystrix:
+    enabled: true

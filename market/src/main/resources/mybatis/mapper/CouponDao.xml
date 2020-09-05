@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.panyu.market.dao.CouponDao">
+
+    <resultMap id="resultCoupon" type="com.panyu.market.entity.Coupon">
+        <result column="id" property="id"></result>
+        <result column="name" property="name"></result>
+        <result column="type" property="type"></result>
+        <result column="deduction_amount" property="deductionAmount"></result>
+        <result column="conditional_amount" property="conditionalAmount"></result>
+        <result column="number" property="number"></result>
+        <result column="effective_days" property="effectiveDays"></result>
+        <result column="status" property="status"></result>
+        <result column="createTime" property="createTime"></result>
+        <result column="updateTime" property="updateTime"></result>
+    </resultMap>
+
+    <select id="findById" parameterType="String" resultType="com.panyu.market.entity.Coupon">
+     SELECT * FROM coupon WHERE id = #{id}
+  </select>
+    <insert id="addCoupon" parameterType="com.panyu.market.entity.Coupon"  >
+		insert into
+		coupon(id,name,type,deduction_amount,conditional_amount,number,effective_days,status,createTime,updateTime)
+		values(
+		#{id},#{name},#{type},#{deductionAmount},#{conditionalAmount},#{number},#{effectiveDays},"待审核",now(),now())
+    </insert>
+
+
+	<update id="updateCoupon" parameterType="java.lang.String">
+		update coupon set status='上架',updateTime=now() where id=#{couponId}
+	</update>
+	<update id="updateRefuse" parameterType="java.lang.String">
+		update coupon set status='审核未通过',updateTime=now() where id=#{couponId}
+	</update>
+</mapper>

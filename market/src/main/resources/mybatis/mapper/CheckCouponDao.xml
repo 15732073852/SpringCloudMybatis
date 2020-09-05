@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.panyu.market.dao.CheckCouponDao">
+    <resultMap id="BaseResultMap" type="com.panyu.market.entity.CheckCoupon">
+        <result column="id" property="id"></result>
+        <result column="checker_id" property="checkerId"></result>
+        <result column="checker_name" property="checkerName"></result>
+        <result column="admin_user_id" property="adminUserId"></result>
+        <result column="admin_user_login_name" property="adminUserLoginName"></result>
+        <result column="coupon_id" property="couponId"></result>
+        <result column="coupon_type" property="couponType"></result>
+        <result column="coupon_name" property="couponName"></result>
+        <result column="coupon_deduction_amount" property="couponDeductionAmount"></result>
+        <result column="coupon_conditional_amount" property="couponConditionalAmount"></result>
+        <result column="coupon_number" property="couponNumber"></result>
+        <result column="coupon_effective_days" property="couponEffectiveDays"></result>
+        <result column="coupon_status" property="couponStatus"></result>
+        <result column="coupon_createTime" property="couponCreateTime"></result>
+        <result column="coupon_updateTime" property="couponUpdateTime"></result>
+    </resultMap>
+
+    <select id="findCheckCouponById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM check_coupon where id=#{id}
+    </select>
+    <update id="updateCross" parameterType="java.lang.String">
+        UPDATE check_coupon
+		SET coupon_status ='通过',coupon_updateTime=now() where id =#{id}
+    </update>
+    <update id="updateRefuse" parameterType="java.lang.String">
+        UPDATE check_coupon
+		SET coupon_status ='拒绝',coupon_updateTime=now() where id =#{id}
+    </update>
+   <select id="findAll" resultMap="BaseResultMap">
+       select * from check_coupon
+   </select>
+    <insert id="addCheckCoupon" parameterType="com.panyu.market.entity.CheckCoupon">
+	   	insert into
+		check_coupon(id,
+		             coupon_id,
+		             coupon_type,
+		             coupon_name,
+		             coupon_deduction_amount,
+		             coupon_conditional_amount,
+		             coupon_number,
+		             coupon_effective_days,
+		             coupon_status,coupon_createTime, coupon_updateTime)
+		      values(#{id},
+		             #{couponId},
+		             #{couponType},
+		             #{couponName},
+		             #{couponDeductionAmount},
+		             #{couponConditionalAmount},
+		             #{couponNumber},
+		             #{couponEffectiveDays},
+		             '待审核',
+		             now(),now())
+   </insert>
+</mapper>
