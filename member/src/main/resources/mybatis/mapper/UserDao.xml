@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.panyu.member.dao.UserDao">
+
+    <resultMap id="resultUser" type="com.panyu.member.entity.User">
+        <result property="userName" column="username"></result>
+    </resultMap>
+
+    <select id="findById" parameterType="String" resultType="com.panyu.member.entity.User">
+     SELECT * FROM user WHERE id = #{id}
+  </select>
+
+    <insert id="addUser" parameterType="com.panyu.member.entity.User"  >
+       insert into user(id,username,name,age,balance,password) values(#{id},#{userName},#{name},#{age},#{balance},#{password})
+    </insert>
+  <select id="findByName" parameterType="java.lang.String" resultType="com.panyu.member.entity.User">
+      select  * from  user where name=#{name}
+  </select>
+
+
+</mapper>
